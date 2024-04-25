@@ -2,6 +2,7 @@ require('dotenv').config();
 
 // Require the Express module
 const express = require('express');
+const mongo = require('./mongo');
 const UserModel = require('./models/UserModel');
 
 // Create an Express application

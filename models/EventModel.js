@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
+    school_id: {
+        type: String,
+        required: true,
+    },
     title: {
         type: String,
         required: true,
@@ -13,12 +17,12 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    user_id: {
+    type: {
         type: String,
-        required: true,
+        enum: ['upcoming', 'current', 'past', 'archived'],
+        required: true
     },
 });
 
-// Define model
 const EventModel = mongoose.model('event', schema);
 module.exports = EventModel;

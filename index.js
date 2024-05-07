@@ -4,6 +4,8 @@ require('dotenv').config();
 const express = require('express');
 const mongo = require('./mongo');
 
+const { authenticate } = require('./utils/authenticate');
+
 const usersRouter = require('./routes/userRoutes');
 const eventRouter = require('./routes/eventRoutes');
 const schoolRouter = require('./routes/schoolRoutes');
@@ -14,10 +16,11 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/user', usersRouter);
-app.use('/event', eventRouter);
-app.use('/school', schoolRouter);
-app.use('/staff', staffRouter);
+app.use('/api/secure', authenticate)
+app.use('/api/secure/user', usersRouter);
+app.use('/api/secure/event', eventRouter);
+app.use('/api/secure/school', schoolRouter);
+app.use('/api/secure/staff', staffRouter);
 
 // Start the server
 const PORT = process.env.PORT;

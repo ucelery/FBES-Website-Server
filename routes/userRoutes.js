@@ -37,6 +37,25 @@ router.post('/add', async (req, res) => {
     }
 });
 
+router.post('/delete', async (req, res) => {
+    try {
+        if (!req.body.user_id) {
+            return res.status(400).json({ error: 'user_id key is required but is null' });
+        }
+
+        const user = await EventModel.findByIdAndDelete(req.body.user_id);
+
+        if (!user) {
+            return res.status(400).json({ error: 'Cannot find user to delete' });
+        }
+
+        res.status(201).json({ message: 'User Deleted Successfully' });
+    } catch (error) {
+        console.error('Error updating post:', error);
+        res.status(500).json({ error: 'Internal Server Error', message: error.message });
+    }
+})
+
 router.get('/login', async (req, res) => {
     try {
         const { username, password } = req.body;

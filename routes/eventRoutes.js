@@ -63,6 +63,10 @@ router.post("/delete", async (req, res) => {
 
         const event = await EventModel.findByIdAndDelete(req.body.event_id);
 
+        if (!event) {
+            return res.status(400).json({ error: 'Cannot find event to delete' });
+        }
+
         res.status(201).json({ message: 'Event Deleted Successfully' });
     } catch (error) {
         console.error('Error updating post:', error);

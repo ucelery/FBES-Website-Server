@@ -63,7 +63,11 @@ router.post("/delete", async (req, res) => {
             return res.status(400).json({ error: 'school_id key is required but is null' });
         }
 
-        await SchoolModel.findByIdAndDelete(req.body.school_id).exec();
+        const result = await SchoolModel.findByIdAndDelete(req.body.school_id);
+
+        if (!result) {
+            return res.status(400).json({ error: 'Cannot find school to delete' });
+        }
 
         res.status(201).json({ message: 'School Data Deleted Successfully' });
     } catch (error) {

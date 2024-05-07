@@ -50,7 +50,7 @@ router.post('/update', async (req, res) => {
             new: true
         });
 
-        res.status(201).json({ message: 'Staff added successfully', user: newStaff });
+        res.status(201).json({ message: 'Staff edited successfully', user: newStaff });
     } catch (error) {
         console.error('Error adding user:', error);
         res.status(500).json({ error: 'Internal Server Error', message: error.message });
@@ -63,7 +63,11 @@ router.post('/delete', async (req, res) => {
             return res.status(400).json({ error: 'staff_id key is required but is null' });
         }
 
-        await StaffModel.findByIdAndDelete(req.body.staff_id);
+        const staff = await StaffModel.findByIdAndDelete(req.body.staff_id);
+
+        if (!staff) {
+            return res.status(400).json({ error: 'Cannot find staff to delete' });
+        }
 
         res.status(201).json({ message: 'Staff deleted successfully' });
     } catch (error) {

@@ -3,6 +3,7 @@ require('dotenv').config();
 // Require the Express module
 const express = require('express');
 const mongo = require('./mongo');
+const cors = require('cors');
 
 const { authenticate } = require('./utils/authenticate');
 
@@ -17,6 +18,7 @@ const subscriptionRouter = require('./routes/subscriptionRoutes');
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/secure', authenticate);
 app.use('/api/secure/user', usersRouter);

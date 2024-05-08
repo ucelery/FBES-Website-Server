@@ -14,7 +14,8 @@ const schema = new mongoose.Schema({
     subscribed_emails: {
         type: [String],
         default: []
-    }
+    },
+    address: reqString
 });
 
 // Define model

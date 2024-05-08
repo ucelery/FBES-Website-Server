@@ -26,7 +26,8 @@ router.post('/add', async (req, res) => {
             mission: req.body.mission,
             vision: req.body.vision,
             about: req.body.about,
-            history: req.body.history
+            history: req.body.history,
+            address: req.body.address
         });
 
         await newSchool.save();
@@ -49,7 +50,8 @@ router.post('/update', async (req, res) => {
             mission: req.body.mission,
             vision: req.body.vision,
             about: req.body.about,
-            history: req.body.history
+            history: req.body.history,
+            address: req.body.address
         }, {
             new: true
         }).exec();

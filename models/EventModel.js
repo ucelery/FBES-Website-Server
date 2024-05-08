@@ -9,17 +9,17 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    date_created: {
-        type: String,
-        required: true,
-    },
     description: {
         type: String,
         required: true,
     },
-    type: {
+    image_url: {
         type: String,
-        enum: ['upcoming', 'current', 'past', 'archived'],
+        default: "",
+    },
+    status: {
+        type: String,
+        enum: ['active', 'archived'],
         required: true
     },
 });

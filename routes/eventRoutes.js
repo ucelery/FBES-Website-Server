@@ -18,8 +18,8 @@ router.post('/add', async (req, res) => {
         const newEvent = new EventModel({
             school_id: req.body.school_id,
             title: req.body.title,
-            date_created: req.body.date_created,
             description: req.body.description,
+            status: req.body.status,
             type: req.body.type
         });
 
@@ -41,8 +41,8 @@ router.post('/update', async (req, res) => {
         const event = await EventModel.findByIdAndUpdate(req.body.event_id, {
             school_id: req.body.school_id,
             title: req.body.title,
-            date_created: req.body.date_created,
             description: req.body.description,
+            status: req.body.status,
             type: req.body.type
         }, {
             new: true

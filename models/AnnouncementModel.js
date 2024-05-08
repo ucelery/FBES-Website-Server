@@ -20,7 +20,7 @@ const schema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['active', 'archived'],
-        required: true
+        default: "active
     },
 }, {
     timestamps: {

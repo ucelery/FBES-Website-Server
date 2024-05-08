@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const AnnouncementModel = require('../models/AnnouncementModel');
+const { sendEmail } = require('../utils/email');
+const SchoolModel = require('../models/SchoolModel');
 
 router.get('/get', async (req, res) => {
     try {
@@ -15,7 +17,11 @@ router.get('/get', async (req, res) => {
 
 router.post('/add', async (req, res) => {
     try {
-        const newObj = new AnnouncementModel({
+        if (!req.body.school_id) {
+            return res.status(400).json({ error: 'school_id key is required but is null' });
+        }
+
+        const newAnnouncement = new AnnouncementModel({
             school_id: req.body.school_id,
             title: req.body.title,
             description: req.body.description,
@@ -23,9 +29,26 @@ router.post('/add', async (req, res) => {
             type: req.body.type
         });
 
-        await newObj.save();
+        await newAnnouncement.save();
 
-        res.status(201).json({ message: 'Announcement added successfully', announcement: newObj });
+        res.status(201).json({ message: 'Announcement added successfully', announcement: newAnnouncement });
+
+        // Notify subscribers
+        const school = await SchoolModel.findById(req.body.school_id);
+        console.log(school);
+        if (!school) {
+            return res.status(400).json({ error: 'Cannot find School by ID' });
+        }
+
+        let emails = school.subscribed_emails;
+
+        const maxEmailCount = 50;
+        console.log(`Sending emails to ${emails.length}`);
+        for (let i = 0; i < emails.length; i += maxEmailCount) {
+            console.log(`Sending emails to ${emails.slice(i, i + maxEmailCount)}`);
+            sendEmail(emails.slice(i, i + maxEmailCount), newAnnouncement.title, newAnnouncement.description);
+        }
+
     } catch (error) {
         console.error('Error adding Announcement:', error);
         res.status(500).json({ error: 'Internal Server Error', message: error.message });

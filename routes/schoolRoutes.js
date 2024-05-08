@@ -24,7 +24,9 @@ router.post('/add', async (req, res) => {
         const newSchool = new SchoolModel({
             name: req.body.name,
             mission: req.body.mission,
-            vision: req.body.vision
+            vision: req.body.vision,
+            about: req.body.about,
+            history: req.body.history
         });
 
         await newSchool.save();
@@ -46,6 +48,8 @@ router.post('/update', async (req, res) => {
             name: req.body.name,
             mission: req.body.mission,
             vision: req.body.vision,
+            about: req.body.about,
+            history: req.body.history
         }, {
             new: true
         }).exec();

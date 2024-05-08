@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const SchoolModel = require("../models/SchoolModel");
+const { sendEmail } = require('../utils/email');
 
 router.post("/add", async (req, res) => {
     if (!req.body.subscriber_email)

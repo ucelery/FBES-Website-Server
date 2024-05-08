@@ -56,24 +56,19 @@ router.post('/delete', async (req, res) => {
     }
 })
 
-router.get('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
-        const { username, password } = req.body;
-
         // Check user credentials against your database
         const user = await UserModel.findOne({
-            username: username,
-            password: password
+            username: req.body.username,
+            password: req.body.password
         });
 
         if (!user) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
 
-        // Generate JWT token
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        res.json({ message: 'Login successful', token });
+        res.json({ message: 'Login successful' });
 
     } catch (error) {
         console.error('User does not exist: ', error);

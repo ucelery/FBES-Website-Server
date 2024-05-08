@@ -62,7 +62,7 @@ router.post('/update', async (req, res) => {
             new: true
         }).exec();
 
-        res.status(201).json({ message: 'Update school successfully', school: school });
+        res.status(201).json({ message: 'Update school successfully', school });
     } catch (error) {
         console.error('Error updating post:', error);
         res.status(500).json({ error: 'Internal Server Error', message: error.message });

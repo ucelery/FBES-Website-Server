@@ -27,7 +27,10 @@ router.post('/add', async (req, res) => {
             vision: req.body.vision,
             about: req.body.about,
             history: req.body.history,
-            address: req.body.address
+            address: req.body.address,
+            email: req.body.email,
+            mobileNo: req.body.mobileNo,
+            telNo: req.body.telNo,
         });
 
         await newSchool.save();
@@ -51,7 +54,10 @@ router.post('/update', async (req, res) => {
             vision: req.body.vision,
             about: req.body.about,
             history: req.body.history,
-            address: req.body.address
+            address: req.body.address,
+            email: req.body.email,
+            mobileNo: req.body.mobileNo,
+            telNo: req.body.telNo,
         }, {
             new: true
         }).exec();

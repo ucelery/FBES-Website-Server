@@ -15,7 +15,19 @@ const schema = new mongoose.Schema({
         type: [String],
         default: []
     },
-    address: reqString
+    address: reqString,
+    email: {
+        type: String,
+        default: ""
+    },
+    mobileNo: {
+        type: String,
+        default: ""
+    },
+    telNo: {
+        type: String,
+        default: ""
+    }
 });
 
 // Define model

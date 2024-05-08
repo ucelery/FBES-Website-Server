@@ -22,7 +22,9 @@ router.post('/add', async (req, res) => {
             firstName: req.body.firstName,
             middleName: req.body.middleName,
             lastName: req.body.lastName,
-            position: req.body.position
+            position: req.body.position,
+            email: req.body.email,
+            mobileNo: req.body.mobielNo
         });
 
         await newStaff.save();
@@ -45,7 +47,9 @@ router.post('/update', async (req, res) => {
             firstName: req.body.firstName,
             middleName: req.body.middleName,
             lastName: req.body.lastName,
-            position: req.body.position
+            position: req.body.position,
+            email: req.body.email,
+            mobileNo: req.body.mobielNo
         }, {
             new: true
         });

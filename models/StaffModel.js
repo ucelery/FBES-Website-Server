@@ -13,6 +13,8 @@ const schema = new mongoose.Schema({
     },
     lastName: reqString,
     position: reqString,
+    email: reqString,
+    mobileNo: reqString
 });
 
 // Define model

@@ -9,6 +9,12 @@ const schema = new mongoose.Schema({
     name: reqString,
     mission: reqString,
     vision: reqString,
+    about: reqString,
+    history: reqString,
+    subscribed_emails: {
+        type: [String],
+        default: []
+    }
 });
 
 // Define model

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const SchoolModel = require("../models/SchoolModel");
 const { sendEmail } = require('../utils/email');
+const { thanksForSub } = require("../utils/emailType");
 
 router.post("/add", async (req, res) => {
     if (!req.body.subscriber_email)
@@ -28,6 +29,7 @@ router.post("/add", async (req, res) => {
         }).exec();
 
         res.status(201).json({ message: 'Subscriber Added!', data: newSubscriber });
+        sendEmail(req.body.subscriber_email, "Subscription Status", thanksForSub());
     } catch (error) {
         console.error('Error adding subscriber:', error);
         res.status(500).json({ error: 'Internal Server Error', message: error.message });

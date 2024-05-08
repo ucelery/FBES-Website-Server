@@ -3,6 +3,7 @@ const router = express.Router();
 const AnnouncementModel = require('../models/AnnouncementModel');
 const { sendEmail } = require('../utils/email');
 const SchoolModel = require('../models/SchoolModel');
+const { thanksForSub, announcementEmail } = require("../utils/emailType");
 
 router.get('/get', async (req, res) => {
     try {
@@ -35,18 +36,13 @@ router.post('/add', async (req, res) => {
 
         // Notify subscribers
         const school = await SchoolModel.findById(req.body.school_id);
-        console.log(school);
-        if (!school) {
-            return res.status(400).json({ error: 'Cannot find School by ID' });
-        }
 
         let emails = school.subscribed_emails;
 
         const maxEmailCount = 50;
-        console.log(`Sending emails to ${emails.length}`);
         for (let i = 0; i < emails.length; i += maxEmailCount) {
             console.log(`Sending emails to ${emails.slice(i, i + maxEmailCount)}`);
-            sendEmail(emails.slice(i, i + maxEmailCount), newAnnouncement.title, newAnnouncement.description);
+            sendEmail(emails.slice(i, i + maxEmailCount), newAnnouncement.title, announcementEmail(newAnnouncement.description));
         }
 
     } catch (error) {

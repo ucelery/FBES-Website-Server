@@ -27,7 +27,8 @@ router.post('/add', async (req, res) => {
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            type: req.body.type
+            type: req.body.type,
+            image_url: req.body.image_url
         });
 
         await newAnnouncement.save();
@@ -62,7 +63,8 @@ router.post('/update', async (req, res) => {
             title: req.body.title,
             date_created: req.body.date_created,
             description: req.body.description,
-            type: req.body.type
+            type: req.body.type,
+            image_url: req.body.image_url
         }, {
             new: true
         });

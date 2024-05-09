@@ -13,7 +13,10 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail = async (to, title, html) => {
     const info = await transporter.sendMail({
-        from: 'FBES - Main <maddison53@ethereal.email>', // sender address
+        from: {
+            name: "FBES - Main",
+            address: config["email_address"]
+        },
         to: to,
         subject: `Announcement - ${title}`,
         html: html,

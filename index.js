@@ -13,6 +13,8 @@ const schoolRouter = require('./routes/schoolRoutes');
 const staffRouter = require('./routes/staffRoutes');
 const announcementRouter = require('./routes/announcementRoutes');
 const subscriptionRouter = require('./routes/subscriptionRoutes');
+const loginRouter = require('./routes/loginRoute');
+const { verifyToken } = require('./auth/auth');
 
 // Create an Express application
 const app = express();
@@ -21,7 +23,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/secure', authenticate);
+app.use('/api/secure', verifyToken);
 app.use('/api/secure/user', usersRouter);
+app.use('/api', loginRouter);
 app.use('/api/secure/event', eventRouter);
 app.use('/api/secure/school', schoolRouter);
 app.use('/api/secure/staff', staffRouter);
